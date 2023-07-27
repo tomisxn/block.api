@@ -1,9 +1,11 @@
 # main.py
 # Import your API route(s) from the routes directory
 from app.routes import bitcoin
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware  # CORS (Cross-Origin Resource Sharing) middleware
 from fastapi import FastAPI, Request, HTTPException
+# Import config
+from app.config import *
 
 description = """
 ## API Description
@@ -31,11 +33,11 @@ app = FastAPI(
         "url": "https://github.com/tomisxn",
         "email": "oluwatomisin.owolabi@yahoo.com",
     },
-    debug=True,
+    debug=DEBUG,
 )
 
 # Include the API route(s) using the router from the imported file(s)
-app.include_router(bitcoin.router, prefix="/api/v1/bitcoin", tags=["Bitcoin"])  # Example with a prefix
+app.include_router(bitcoin.router, prefix=API_PREFIX+"/bitcoin", tags=["Bitcoin"])  # Example with a prefix
 
 # Optional: Set up additional configurations and middleware here
 origins = ["http://localhost", "http://localhost:3000"]  # Replace with your frontend's origin(s)
@@ -46,6 +48,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Redirect to /docs
+@app.get("/", include_in_schema=False)
+async def root():
+    return RedirectResponse(url="/docs")
 
 
 # Custom exception handler for "Internal Server Error"
