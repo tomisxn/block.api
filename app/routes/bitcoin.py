@@ -27,7 +27,7 @@ def get_balance(payload: Address):
         data = response.json()  # Extract the JSON data from the response
         return data
     except requests.HTTPError as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="API Error")
     except requests.RequestException as e:
         raise HTTPException(status_code=500, detail="Request Error")
     except Exception as e:
@@ -52,7 +52,7 @@ def get_history(payload: Address):
         data = response.json()  # Extract the JSON data from the response
         return data
     except requests.HTTPError as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="API Error")
     except requests.RequestException as e:
         raise HTTPException(status_code=500, detail="Request Error")
     except Exception as e:
@@ -69,9 +69,9 @@ def get_balance(txid: str):
         data = response.json()  # Extract the JSON data from the response
         return data
     except requests.HTTPError as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="API Error")
     except requests.RequestException as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Request Error")
     except Exception as e:
         raise HTTPException(status_code=500, detail="Unexpected Error")
 
@@ -86,9 +86,9 @@ def get_currencies():
         data = response.json()  # Extract the JSON data from the response
         return data
     except requests.HTTPError as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="API Error")
     except requests.RequestException as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Request Error")
     except Exception as e:
         raise HTTPException(status_code=500, detail="Unexpected Error")
 
@@ -103,8 +103,8 @@ def get_currencies(currency_code: str):
         data = response.json()  # Extract the JSON data from the response
         return data
     except requests.HTTPError as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="API Error")
     except requests.RequestException as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Request Error")
     except Exception as e:
         raise HTTPException(status_code=500, detail="Unexpected Error")
